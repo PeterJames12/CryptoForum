@@ -1,0 +1,20 @@
+<modal #deleteTopicFormModal>
+  <div *ngIf="topic">
+    <modal-header>
+      <b>Do you want to delete this topic?</b>
+    </modal-header>
+    <modal-body>
+      <div class="form-group" style="margin-bottom: 0">
+        <label>Title:</label> {{topic.title}}<br>
+        <label>Description:</label> {{topic.description}}
+      </div>
+    </modal-body>
+    <modal-footer>
+      <div class="btn-toolbar">
+        <button type="submit" class="btn btn-primary col-md-5 pull-left" (click)="deleteTopic($event)">Delete
+        </button>
+        <button type="submit" class="btn btn-danger col-md-5 pull-right" data-dismiss="modal">Close</button>
+      </div>
+    </modal-footer>
+  </div>
+</modal>

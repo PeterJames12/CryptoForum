@@ -1,0 +1,4 @@
+<div *ngIf="center">
+  <img [src]="getImage()" class="center-block img-responsive img-thumbnail"/>
+</div>
+<img [src]="getImage()" *ngIf="!center" class="img-responsive img-thumbnail"/>

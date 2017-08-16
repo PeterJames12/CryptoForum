@@ -1,0 +1,57 @@
+<div class="container col-lg-12" *ngIf="topic">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <b>{{topic.title}}</b>
+        <!--<div *ngIf="currentUser.role == 'admin'">ADMIN</div>-->
+      </div>
+    </div>
+    <div class="panel-body">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <b>Description:</b> <inline-editor type="text"
+                                             [(ngModel)]="topic.description"
+                                             (onSave)="updateTopic(topic)"
+                                             size="40"
+                              >
+                              </inline-editor>
+        </div>
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item" *ngFor="let message of messages">
+          <div class="row">
+            <div class="col-lg-2 col-sm-2 col-xs-2 text-center">
+              <p>
+                <gravatar [email]="message.sender.email" [size]="80"></gravatar>
+              </p>
+              <b><a [routerLink]="['/user', message.sender.id]">{{message.sender.firstName}}
+                {{message.sender.lastName}}</a></b><br>
+              <span><b>{{message.sender.role.name}}</b></span><br>
+            </div>
+            <div class="col-lg-10 col-sm-9 col-xs-9">
+              <pre>{{message.text}}</pre>
+              <button *ngIf="currentUser.id == message.sender.id || currentUser.role.name == 'admin'"
+                      class="btn btn-danger btn-xs pull-left" [attr.value]="message.id"
+                      (click)="openDeleteMessageModal(message)">Delete
+              </button>
+              <p class="pull-right badge">
+                <date-parse [date]="message.dateAndTime"></date-parse>
+              </p>
+            </div>
+          </div>
+        </li>
+      </ul>
+      <form [formGroup]="messageForm" (ngSubmit)="createNewMessage(messageForm.value)"
+            [ngClass]="{'has-error': !validate('text')}">
+        <textarea class="form-control" rows="3" formControlName="text"></textarea>
+        <div *ngIf="!validate('text')" class="help-block text-left">
+          <span *ngIf="messageForm.get('text')">Message length should be between 2 and 500 characters.</span>
+        </div>
+        <button type="submit" class="btn btn-primary pull-right" [disabled]="messageForm.invalid">Submit message
+        </button>
+      </form>
+    </div>
+
+    <!--<delete-message [messages]="messages" (updated)="updateMessages($event)"></delete-message>-->
+  </div>
+</div>

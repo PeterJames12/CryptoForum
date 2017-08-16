@@ -1,0 +1,45 @@
+<div class="container">
+  <div class="col-md-6 col-md-offset-3">
+    <form-template>
+      <div class="template-header">
+        Sign In
+      </div>
+      <div class="template-body">
+        <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)" autocomplete="off" novalidate>
+          <!--EMAIL-->
+          <div class="form-group" [ngClass]="{'has-error': !validateField('email')}">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+              <input type="text" id="email" formControlName="email" class="form-control" placeholder="Email">
+              <span *ngIf="!validateField('email')"
+                    class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+            <div *ngIf="!validateField('email')" class="help-block text-left">
+              <span *ngIf="loginForm.get('email').hasError('required')">Email address required.</span>
+              <span *ngIf="loginForm.get('email').hasError('email')">Invalid email address.</span>
+            </div>
+          </div>
+          <!--PASSWORD-->
+          <div class="form-group" [ngClass]="{'has-error': !validateField('password')}">
+            <div class="input-group">
+              <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+              <input type="password" id="password" formControlName="password" class="form-control"
+                     placeholder="Password">
+              <span *ngIf="!validateField('password')"
+                    class="glyphicon glyphicon-remove form-control-feedback"></span>
+            </div>
+            <div *ngIf="!validateField('password')" class="help-block text-left">
+              <span *ngIf="loginForm.get('password').hasError('required')">Password required.</span>
+              <span *ngIf="loginForm.get('password').hasError('minlength')">Password invalid. Password must be at least six characters long.</span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary col-lg-12" [disabled]="loginForm.invalid">Login</button>
+          <a [routerLink]="['../signup']"><button type="submit" class="btn btn-success col-lg-12"> Sign up</button></a>
+        </form>
+        <div class="template-footer">
+          Forgot password? <a [routerLink]="['../recover']">Recover password</a>
+        </div>
+      </div>
+    </form-template>
+  </div>
+</div>

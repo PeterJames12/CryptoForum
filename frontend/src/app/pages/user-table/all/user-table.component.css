@@ -1,0 +1,67 @@
+table {
+  background-color: white;
+}
+
+.paginate_button {
+  cursor: pointer;
+}
+
+.pagination {
+  margin: 0;
+}
+
+.buttons {
+  margin-bottom: 0;
+}
+
+.delete-col {
+  width: 20px;
+}
+
+.search {
+  padding-right: 0;
+}
+
+td {
+  text-align: left;
+}
+
+th:hover {
+  background-color: #337AB7;
+  color: white;
+  cursor: pointer;
+}
+
+.td-center {
+  text-align: center;
+}
+
+.glyphicon-triangle-bottom:before, .glyphicon-triangle-top:before {
+  vertical-align: middle;
+}
+
+.panel {
+  border-top: 0;
+  border-radius: 0 4px 4px 4px;
+}
+
+.nav-tabs > li.active > a {
+  background-color: #337AB7;
+  color: white;
+}
+
+.add-request {
+  margin-bottom: 15px;
+}
+
+.nav-tabs > li > a {
+  font-weight: bold;
+}
+
+.container{
+  width: auto;
+}
+
+.panel-body,.panel,.panel-default{
+  min-width: 659px;
+}

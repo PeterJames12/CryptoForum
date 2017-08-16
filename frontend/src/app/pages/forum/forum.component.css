@@ -1,0 +1,33 @@
+.topic-logo {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+.titles {
+  background-color: #F5F5F5;
+}
+
+.pagination {
+  margin: 0;
+}
+
+.btn-div {
+  margin-top: 15px;
+}
+
+.list-group {
+  margin-bottom: 10px;
+}
+
+.title {
+  color: #337AB7;
+}
+
+td {
+  text-align: left;
+}
+
+.td-center {
+  text-align: center;
+}

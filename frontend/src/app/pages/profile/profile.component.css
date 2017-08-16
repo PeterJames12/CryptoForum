@@ -1,0 +1,27 @@
+.content{
+  width: auto;
+}
+
+.dummy_user {
+  width: 303px;
+  height: auto;
+  /*border: solid darkgray 3px;*/
+  border-radius: 3%;
+}
+
+.container{
+  /*width: 100%;*/
+  /*text-align: center;*/
+  /*margin: auto;*/
+}
+
+.profile-buttons {
+  margin-top: 10px;
+}
+
+@media (min-width: 992px){
+  .col-md-7 {
+     padding-left: 7%;
+  }
+}
+

@@ -1,0 +1,86 @@
+<div *ngIf="users">
+  <ul class="nav nav-tabs">
+  </ul>
+  <div class="panel panel-default">
+    <div class="panel-body">
+      <select class="form-control pull-left" style="width: 90px;" (change)="changeSize($event.target.value)">
+        <option>10</option>
+        <option selected>20</option>
+        <option>50</option>
+        <option>100</option>
+      </select>
+      <button class="btn btn-success btn-sm pull-right add-request" (click)="openAddUserModal()">New user</button>
+      <table class="table table-bordered table-hover table-condensed">
+        <thead>
+        <tr>
+          <th (click)="changeOrderParams(!orderType, 'firstName')">First name
+            <span *ngIf="orderType && orderField == 'firstName'" class="glyphicon glyphicon-triangle-bottom pull-right" aria-hidden="true"></span>
+            <span *ngIf="!orderType && orderField == 'firstName'" class="glyphicon glyphicon-triangle-top pull-right" aria-hidden="true"></span>
+          </th>
+          <th (click)="changeOrderParams(!orderType, 'lastName')">Last name
+            <span *ngIf="orderType && orderField == 'lastName'" class="glyphicon glyphicon-triangle-bottom pull-right" aria-hidden="true"></span>
+            <span *ngIf="!orderType && orderField == 'lastName'" class="glyphicon glyphicon-triangle-top pull-right" aria-hidden="true"></span>
+          </th>
+          <th (click)="changeOrderParams(!orderType, 'email')">Email
+            <span *ngIf="orderType && orderField == 'email'" class="glyphicon glyphicon-triangle-bottom pull-right" aria-hidden="true"></span>
+            <span *ngIf="!orderType && orderField == 'email'" class="glyphicon glyphicon-triangle-top pull-right" aria-hidden="true"></span>
+          </th>
+          <th (click)="changeOrderParams(!orderType, 'role')">Role
+            <span *ngIf="orderType && orderField == 'role'" class="glyphicon glyphicon-triangle-bottom pull-right" aria-hidden="true"></span>
+            <span *ngIf="!orderType && orderField == 'role'" class="glyphicon glyphicon-triangle-top pull-right" aria-hidden="true"></span>
+          </th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>
+            <input *ngIf="!settings.ajax" type="text" [(ngModel)]="searchTypes.firstName" class="form-control"/>
+            <input *ngIf="settings.ajax" type="text" [ngModel]="searchDTO.firstName" (ngModelChange)="setTitleSearch('firstName', $event)" class="form-control"/>
+          </td>
+          <td>
+            <input *ngIf="!settings.ajax" type="text" [(ngModel)]="searchTypes.lastName" class="form-control"/>
+            <input *ngIf="settings.ajax" type="text" [ngModel]="searchDTO.lastName" (ngModelChange)="setTitleSearch('lastName', $event)" class="form-control"/>
+          </td>
+          <td>
+            <input *ngIf="!settings.ajax" type="text" [(ngModel)]="searchTypes.email" class="form-control"/>
+            <input *ngIf="settings.ajax" type="text" [ngModel]="searchDTO.email" (ngModelChange)="setTitleSearch('email', $event)" class="form-control"/>
+          </td>
+          <td>
+            <select *ngIf="!settings.ajax" class="form-control" [(ngModel)]="searchTypes.role">
+              <option></option>
+              <option>admin</option>
+              <option>employee</option>
+              <option>office manager</option>
+            </select>
+            <select *ngIf="settings.ajax" class="form-control" [(ngModel)]="searchDTO.role" (ngModelChange)="setTitleSearch('role', $event)">
+              <option></option>
+              <option>admin</option>
+              <option>employee</option>
+              <option>office manager</option>
+            </select>
+          </td>
+          <td class="td-center"><span class="glyphicon glyphicon-trash"></span></td>
+        </tr>
+        <tr *ngFor="let user of users">
+          <td [routerLink]="['/user', user.id]">{{user.firstName}}</td>
+          <td [routerLink]="['/user', user.id]">{{user.lastName}}</td>
+          <td [routerLink]="['/user', user.id]">{{user.email}}</td>
+          <td [routerLink]="['/user', user.id]">{{user.role.name}}</td>
+          <td class="text-center delete-col">
+            <button [attr.value]="user.id" class="glyphicon glyphicon-trash btn btn-danger btn-xs center-block"
+                    (click)="openDeleteUserModal(user)"></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="text-center" *ngIf="!searchDTO.firstName && !searchDTO.lastName && !searchDTO.role && !searchDTO.email">
+      <pagination [totalItems]="pageNumber"
+                  [itemsPerPage]="perPage" (pageChanged)="changed($event)"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+</div>
+<add-user [users]="users" (updated)="updateUsers($event)"></add-user>
+<delete-user [users]="users" (updated)="updateUsers($event)"></delete-user>

@@ -1,0 +1,78 @@
+<div class="container col-lg-offset-2 col-lg-8" *ngIf="!currentUser">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <div class="panel-title">
+        <b>Forum</b>
+      </div>
+    </div>
+    <div class="panel-body">
+        <select class="form-control pull-left" style="width: 90px;" (change)="changeSize($event.target.value)">
+          <option>10</option>
+          <option selected>20</option>
+          <option>50</option>
+          <option>100</option>
+        </select>
+        <button style="margin-bottom: 10px" class="btn btn-success pull-right" (click)="topicModal.open()">New topic</button>
+      <table class="table table-bordered table-hover">
+        <thead>
+        <tr>
+          <th>Topic title</th>
+          <th>Description</th>
+          <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr style="cursor: pointer;" *ngFor="let topic of topics">
+          <td class="title" [routerLink]="['./topic', topic.id]">
+            <img class="topic-logo" src="http://www.crazynomad.in/img/Article1.png" alt="article-logo">
+            {{topic.title}}
+          </td>
+          <td [routerLink]="['./topic', topic.id]">
+            {{topic.description}}
+          </td>
+          <td class="td-center" width="30px">
+            <button class="btn btn-danger btn-xs" (click)="openDeleteTopicModal(topic)"><span
+              class="glyphicon glyphicon-trash text-center"></span></button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="text-center">
+        <pagination [totalItems]="pageNumber"
+                    [itemsPerPage]="perPage" (pageChanged)="changed($event)"
+        ></pagination>
+      </div>
+    </div>
+  </div>
+</div>
+
+<modal [animation]="true" #topicModal>
+  <form [formGroup]="topicForm" (ngSubmit)="createNewTopic(topicForm.value)" autocomplete="off" novalidate>
+    <modal-header [show-close]="true">
+      <h4 class="modal-title"><b>Create new topic</b></h4>
+    </modal-header>
+    <modal-body>
+      <!--TOPIC TITLE-->
+      <div class="form-group" [ngClass]="{'has-error': !validate('title')}">
+        <label for="title">Title:</label>
+        <input id="title" type="text" class="form-control" required formControlName="title"/>
+        <div *ngIf="!validate('title')" class="help-block text-left">
+          <span *ngIf="topicForm.get('title')">Title length should be between 2 and 20 characters.</span>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="description">Description:</label>
+        <textarea class="form-control" rows="5" id="description" formControlName="description"></textarea>
+      </div>
+    </modal-body>
+    <modal-footer>
+      <div class="btn-toolbar">
+        <button type="submit" class="btn btn-primary col-lg-5 pull-left" [disabled]="topicForm.invalid">Submit
+        </button>
+        <button type="button" class="btn btn-danger col-lg-5 pull-right" data-dismiss="modal">Close
+        </button>
+      </div>
+    </modal-footer>
+  </form>
+</modal>
+<delete-topic [topics]="topics" (updated)="updateTopics($event)"></delete-topic>

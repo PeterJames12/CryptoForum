@@ -1,0 +1,28 @@
+.topic-user-logo {
+  width: 64px;
+  height: 64px;
+}
+
+.pagination {
+  margin: 10px 0 0 0;
+}
+
+.form-group {
+  margin-bottom: 10px;
+}
+
+.list-group {
+  margin-bottom: 15px;
+}
+
+button {
+  margin-top: 10px;
+}
+
+.btn-danger {
+  margin-top: 0;
+}
+
+.badge {
+  background-color: #337AB7;
+}

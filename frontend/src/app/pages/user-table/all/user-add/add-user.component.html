@@ -1,0 +1,97 @@
+<modal [animation]="true" (onClose)="closeModal()" (onDismiss)="closeModal()" #addUserFormModal>
+  <form [formGroup]="addUserForm" (ngSubmit)="addUser(addUserForm.value)" autocomplete="off" novalidate>
+    <modal-header [show-close]="true">
+      <b>Create new user</b>
+    </modal-header>
+    <modal-header>
+      <!--USER FIRST NAME-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('firstName')}">
+        <label for="firstName">First Name</label>
+        <input id="firstName" formControlName="firstName" type="text" placeholder="First Name"
+               class="form-control"/>
+        <div *ngIf="!validateField('firstName')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('firstName').hasError('required')">First name required.</span>
+        </div>
+      </div>
+      <!--USER LAST NAME-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('lastName')}">
+        <label for="lastName">Last Name</label>
+        <input id="lastName" formControlName="lastName" type="text" placeholder="Last Name" class="form-control"/>
+        <div *ngIf="!validateField('lastName')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('lastName').hasError('required')">Last name required.</span>
+        </div>
+      </div>
+      <!--USER SECOND NAME-->
+      <div class="form-group col-lg-12" [ngClass]="{'has-error': !validateField('secondName')}">
+        <label for="secondName">Second Name</label>
+        <input id="secondName" formControlName="secondName" type="text" placeholder="Second Name"
+               class="form-control"/>
+      </div>
+      <!--USER ROLE-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('role')}">
+        <label for="role">Role</label>
+        <select id="role" formControlName="role" class="form-control">
+          <option [ngValue]="role" *ngFor="let role of roles">{{role.name}}</option>
+        </select>
+        <div *ngIf="!validateField('role')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('role').hasError('required')">Role required.</span>
+        </div>
+      </div>
+      <!--USER EMAIL-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('email')}">
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" class="form-control" placeholder="Email">
+        <div *ngIf="!validateField('email')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('email').hasError('required')">Email address required.</span>
+          <span *ngIf="addUserForm.get('email').hasError('email')">Invalid email address.</span>
+        </div>
+      </div>
+      <!--USER PASSWORD-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('password')}">
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" class="form-control"
+               placeholder="Password">
+        <div *ngIf="!validateField('password')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('password').hasError('required')">Password required.</span>
+          <span *ngIf="addUserForm.get('password').hasError('minlength')">Password invalid. Password must be at least six characters long.</span>
+        </div>
+      </div>
+      <!--USER CONFIRM PASSWORD-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('confirmPassword')}">
+        <label for="confirmPassword">Confirm Password</label>
+        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control"
+               placeholder="Confirm Password">
+        <div *ngIf="!validateField('confirmPassword')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('confirmPassword').hasError('required')">Password required.</span>
+          <span *ngIf="addUserForm.get('confirmPassword').hasError('minlength')">Password invalid. Password must be at least six characters long.</span>
+          <!--<span *ngIf="addUserForm.get('confirmPassword').hasError('not match')">Passwords is not match.</span>-->
+        </div>
+      </div>
+      <!--USER BIRTH DATE-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('dateOfBirth')}">
+        <label for="dateOfBirth">Date of Birth</label>
+        <input id="dateOfBirth" formControlName="dateOfBirth" type="date" placeholder="Date of birth"
+               class="form-control"/>
+        <div *ngIf="!validateField('dateOfBirth')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('dateOfBirth').hasError('dateISO')">Invalid date.</span>
+        </div>
+      </div>
+      <!--USER PHONE NUMBER-->
+      <div class="form-group col-lg-6" [ngClass]="{'has-error': !validateField('phoneNumber')}">
+        <label for="phoneNumber">Phone number</label>
+        <input id="phoneNumber" formControlName="phoneNumber" type="text" placeholder="Phone Number"
+               class="form-control"/>
+        <div *ngIf="!validateField('phoneNumber')" class="help-block text-left">
+          <span *ngIf="addUserForm.get('phoneNumber').hasError('phone')">Invalid phone number. Example: 0995351242</span>
+        </div>
+      </div>
+    </modal-header>
+    <modal-footer>
+      <div class="btn-toolbar col-lg-12">
+        <button type="submit" class="btn btn-primary col-md-5 pull-left" [disabled]="addUserForm.invalid">Submit
+        </button>
+        <button type="submit" class="btn btn-danger col-md-5 pull-right" data-dismiss="modal">Close</button>
+      </div>
+    </modal-footer>
+  </form>
+</modal>
